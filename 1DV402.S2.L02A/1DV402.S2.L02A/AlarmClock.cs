@@ -69,7 +69,6 @@ namespace _1DV402.S2.L02A
         } 
         #endregion
 
-
         #region Constructors
         public AlarmClock()
             : this(0, 0)
@@ -83,19 +82,55 @@ namespace _1DV402.S2.L02A
         }
         public AlarmClock(int hour, int minute, int alarmHour, int alarmMinute)
         {
-
+            Hour = hour;
+            Minute = minute;
+            AlarmHour = alarmHour;
+            AlarmMinute = alarmMinute;
         } 
         #endregion
 
         #region Methods
+        /// <summary>
+        /// Increases the time by one minute per call, checks if the alarm goes off
+        /// </summary>
+        /// <returns></returns>
         public bool TickTock()
         {
-            throw new NotImplementedException();
+            bool alarm = false;
+            
+            //Increases time by 1 minute, compensates for new hour and day
+            if(Minute == 59)
+            {
+                Minute = 0;
+                if(Hour == 23)
+                {
+                    Hour = 0;
+                }
+                else
+                {
+                    Hour++;
+                }
+            }
+            else
+            {
+                Minute++;
+            }
+
+            //Checks if the alarm goes off
+            if(Hour == AlarmHour && Minute == AlarmMinute)
+            {
+                alarm = true;
+            }
+            return alarm;
         }
 
+        /// <summary>
+        /// Formats the current time and alarm time to a string that is returned
+        /// </summary>
         public string ToString()
         {
-            throw new NotImplementedException();
+            string time = string.Format("{0, 2}:{1:D2} ({2, 2}:{3:D2})", Hour, Minute, AlarmHour, AlarmMinute);
+            return time;
         } 
         #endregion
     }
