@@ -20,34 +20,64 @@ namespace _1DV402.S2.L02A
         public int Hour
         {
             get { return _hour; }
-            set { _hour = value; }
+            set 
+            { 
+                if(value < 0 || value > 23)
+                {
+                    throw new ArgumentException();
+                }
+                _hour = value;
+            }
         }
 
         public int Minute
         {
             get { return _minute; }
-            set { _minute = value; }
+            set
+            {
+                if (value < 0 || value > 59)
+                {
+                    throw new ArgumentException();
+                }
+                _minute = value;
+            }
         }
         public int AlarmHour
         {
             get { return _alarmHour; }
-            set { _alarmHour = value; }
+            set
+            {
+                if (value < 0 || value > 23)
+                {
+                    throw new ArgumentException();
+                }
+                _alarmHour = value;
+            }
         }
 
         public int AlarmMinute
         {
             get { return _alarmMinute; }
-            set { _alarmMinute = value; }
+            set
+            {
+                if (value < 0 || value > 59)
+                {
+                    throw new ArgumentException();
+                }
+                _alarmMinute = value;
+            }
         } 
         #endregion
 
 
         #region Constructors
         public AlarmClock()
+            : this(0, 0)
         {
-
+            
         }
         public AlarmClock(int hour, int minute)
+            : this(hour, minute, 0, 0)
         {
 
         }
@@ -57,6 +87,7 @@ namespace _1DV402.S2.L02A
         } 
         #endregion
 
+        #region Methods
         public bool TickTock()
         {
             throw new NotImplementedException();
@@ -65,8 +96,7 @@ namespace _1DV402.S2.L02A
         public string ToString()
         {
             throw new NotImplementedException();
-        }
-
-
+        } 
+        #endregion
     }
 }
