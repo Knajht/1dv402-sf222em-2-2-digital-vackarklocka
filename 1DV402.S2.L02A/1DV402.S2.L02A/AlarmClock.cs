@@ -15,7 +15,6 @@ namespace _1DV402.S2.L02A
         private int _alarmMinute; 
         #endregion
 
-
         #region Properties
         public int Hour
         {

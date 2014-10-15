@@ -12,6 +12,7 @@ namespace _1DV402.S2.L02A
 
         static void Main(string[] args)
         {
+//Tests to check class AlarmClock functionality
             //Test1
             ViewTestHeader("Test 1.\nTest av standardkonstruktorn.\n");
             AlarmClock ac = new AlarmClock();
@@ -128,11 +129,9 @@ namespace _1DV402.S2.L02A
             {
                 ViewErrorMessage(e.Message);
             }
-
-
-
-
         }
+
+        #region OtherMethods
         private static void Run(AlarmClock ac, int minutes)
         {
             ac.Minute = ac.Minute + minutes;
@@ -148,6 +147,7 @@ namespace _1DV402.S2.L02A
         private static void ViewTestHeader(string header)
         {
             Console.WriteLine("{0}{1}", horizontalLine, header);
-        }
+        } 
+        #endregion
     }
 }
