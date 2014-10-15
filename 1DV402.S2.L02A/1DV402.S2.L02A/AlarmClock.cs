@@ -24,7 +24,7 @@ namespace _1DV402.S2.L02A
             { 
                 if(value < 0 || value > 23)
                 {
-                    throw new ArgumentException();
+                    throw new ArgumentException("Timmen är inte i intervallet 0-23");
                 }
                 _hour = value;
             }
@@ -37,7 +37,7 @@ namespace _1DV402.S2.L02A
             {
                 if (value < 0 || value > 59)
                 {
-                    throw new ArgumentException();
+                    throw new ArgumentException("Minuten är inte i intervallet 0-59");
                 }
                 _minute = value;
             }
@@ -49,7 +49,7 @@ namespace _1DV402.S2.L02A
             {
                 if (value < 0 || value > 23)
                 {
-                    throw new ArgumentException();
+                    throw new ArgumentException("Alarmtimmen är inte i intervallet 0-23");
                 }
                 _alarmHour = value;
             }
@@ -62,7 +62,7 @@ namespace _1DV402.S2.L02A
             {
                 if (value < 0 || value > 59)
                 {
-                    throw new ArgumentException();
+                    throw new ArgumentException("Alarmminuten är inte i intervallet 0-59");
                 }
                 _alarmMinute = value;
             }
@@ -129,7 +129,7 @@ namespace _1DV402.S2.L02A
         /// </summary>
         public string ToString()
         {
-            string time = string.Format("{0, 2}:{1:D2} ({2, 2}:{3:D2})", Hour, Minute, AlarmHour, AlarmMinute);
+            string time = string.Format("{0, 2}:{1:D2} ({2}:{3:D2})", Hour, Minute, AlarmHour, AlarmMinute);
             return time;
         } 
         #endregion
