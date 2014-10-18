@@ -8,65 +8,93 @@ namespace _1DV402.S2.L02B
 {
     public class AlarmClock
     {
-        #region Fields
-        private int _hour;
-        private int _minute;
-        private int _alarmHour;
-        private int _alarmMinute; 
+        #region OLDFields
+        //private int _hour;
+        //private int _minute;
+        //private int _alarmHour;
+        //private int _alarmMinute; 
         #endregion
 
-        #region Properties
-        public int Hour
-        {
-            get { return _hour; }
-            set 
-            { 
-                if(value < 0 || value > 23)
-                {
-                    throw new ArgumentException("Timmen är inte i intervallet 0-23");
-                }
-                _hour = value;
-            }
-        }
+        private ClockDisplay _alarmTime;
+        private ClockDisplay _time;
 
-        public int Minute
-        {
-            get { return _minute; }
-            set
-            {
-                if (value < 0 || value > 59)
-                {
-                    throw new ArgumentException("Minuten är inte i intervallet 0-59");
-                }
-                _minute = value;
-            }
-        }
         public int AlarmHour
         {
-            get { return _alarmHour; }
-            set
-            {
-                if (value < 0 || value > 23)
-                {
-                    throw new ArgumentException("Alarmtimmen är inte i intervallet 0-23");
-                }
-                _alarmHour = value;
-            }
+            get { return _alarmTime.Hour; }
+            set { _alarmTime.Hour = value; }
         }
-
         public int AlarmMinute
         {
-            get { return _alarmMinute; }
-            set
-            {
-                if (value < 0 || value > 59)
-                {
-                    throw new ArgumentException("Alarmminuten är inte i intervallet 0-59");
-                }
-                _alarmMinute = value;
-            }
-        } 
+            get { return _alarmTime.Minute; }
+            set { _alarmTime.Minute = value; }
+        }
+        public int Hour
+        {
+            get { return _time.Hour; }
+            set { _time.Hour = value; }
+        }
+        public int Minute
+        {
+            get { return _time.Minute; }
+            set { _time.Minute = value; }
+        }
+
+
+
+        #region OLDProperties
+        //public int Hour
+        //{
+        //    get { return _hour; }
+        //    set 
+        //    { 
+        //        if(value < 0 || value > 23)
+        //        {
+        //            throw new ArgumentException("Timmen är inte i intervallet 0-23");
+        //        }
+        //        _hour = value;
+        //    }
+        //}
+
+        //public int Minute
+        //{
+        //    get { return _minute; }
+        //    set
+        //    {
+        //        if (value < 0 || value > 59)
+        //        {
+        //            throw new ArgumentException("Minuten är inte i intervallet 0-59");
+        //        }
+        //        _minute = value;
+        //    }
+        //}
+        //public int AlarmHour
+        //{
+        //    get { return _alarmHour; }
+        //    set
+        //    {
+        //        if (value < 0 || value > 23)
+        //        {
+        //            throw new ArgumentException("Alarmtimmen är inte i intervallet 0-23");
+        //        }
+        //        _alarmHour = value;
+        //    }
+        //}
+
+        //public int AlarmMinute
+        //{
+        //    get { return _alarmMinute; }
+        //    set
+        //    {
+        //        if (value < 0 || value > 59)
+        //        {
+        //            throw new ArgumentException("Alarmminuten är inte i intervallet 0-59");
+        //        }
+        //        _alarmMinute = value;
+        //    }
+        //} 
         #endregion
+
+
 
         #region Constructors
         public AlarmClock()
