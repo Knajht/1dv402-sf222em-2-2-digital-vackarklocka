@@ -8,64 +8,77 @@ namespace _1DV402.S2.L02B
 {
     class NumberDisplay
     {
+        #region Fields
         private int _maxNumber;
-        private int _number;
+        private int _number; 
+        #endregion
 
-
-        //TODO: Meddelande?
+        #region Properties
         public int MaxNumber
         {
             get { return _maxNumber; }
-            set 
-            { 
-                if(value <= 0)
+            set
+            {
+                if (value <= 0)
                 {
-                    throw new ArgumentException(); //TODO: Skicka med meddelande?
+                    throw new ArgumentException("Invalid MaxNumber, needs to be over 0");
                 }
-                _maxNumber = value; 
+                _maxNumber = value;
             }
         }
 
         public int Number
         {
             get { return _number; }
-            set 
+            set
             {
-                if(value <= 0 || value > MaxNumber)
+                if (value < 0 || value > MaxNumber)
                 {
-                    throw new ArgumentException(); //TODO: Skicka med meddelande?
+                    throw new ArgumentException(String.Format("The number needs to be in the interval between 0 and {0}", MaxNumber));
                 }
-                
-                _number = value; 
+                _number = value;
             }
-        }
+        } 
+        #endregion
 
+        #region Constructor
         public NumberDisplay(int maxNumber)
-            :this(maxNumber, 0)
+            : this(maxNumber, 0)
         {
         }
-        //READY - Konstruktorer
         public NumberDisplay(int maxNumber, int number)
         {
             MaxNumber = maxNumber;
             Number = number;
-        }
+        } 
+        #endregion
 
+        #region Methods
+        /// <summary>
+        /// Increases Number by 1, unless it would pass the MaxNumber, in which case it sets Number to 0.
+        /// </summary>
         public void Increment()
         {
-            Number++;
-            if(Number > MaxNumber)
+            if (Number == MaxNumber)
             {
                 Number = 0;
             }
+            else
+            {
+                Number++;
+            }
         }
-
-        public string ToString()
+        /// <summary>
+        /// Returns the Number without zero padding
+        /// </summary>
+        public override string ToString()
         {
-            //return String.Format("{0}", Number);
-            return ToString("0"); //TODO: Välja metod.
+            return ToString("0");
         }
-
+        
+        /// <summary>
+        /// Returns the Number in specified format, "00" as a two-digit number.
+        /// </summary>
         public string ToString(string format)
         {
             switch (format)
@@ -76,8 +89,9 @@ namespace _1DV402.S2.L02B
                 case "00":
                     return String.Format("{0:D2}", Number);
                 default:
-                    throw new FormatException();//TODO: Meddelande?
+                    throw new FormatException("This is not a known format for Number.");
             }
-        }
+        } 
+        #endregion
     }
 }

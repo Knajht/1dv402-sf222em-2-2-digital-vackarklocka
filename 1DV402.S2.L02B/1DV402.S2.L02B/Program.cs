@@ -32,31 +32,15 @@ namespace _1DV402.S2.L02B
             ViewTestHeader("Test 4.\nStäller befintligt AlarmClock-objekt till 23:58 och låter den gå 13 minuter.\n");
             ac3.Hour = 23;
             ac3.Minute = 58;
-            for (int i = 0; i < 13; i++)
-            {
-                ac3.TickTock();
-                Console.WriteLine(ac3.ToString());
-            }
+            Run(ac3, 13);
 
             //Test5
             ViewTestHeader("Test 5.\nStäller befintligt AlarmClock-objekt till tiden 6:12 och alarmtiden 6:15 samt låter den gå 6 minuter.\n");
             ac3.Hour = 6;
-            ac3.Minute = 13;
+            ac3.Minute = 12;
             ac3.AlarmHour = 6;
             ac3.AlarmMinute = 15;
-            for (int i = 0; i < 6; i++)
-            {
-                if (ac3.TickTock() == true)
-                {
-                    Console.BackgroundColor = ConsoleColor.Magenta;
-                    Console.WriteLine("{0}   PIP, Pip, pip.... piiiip..", ac3.ToString());
-                    Console.ResetColor();
-                }
-                else
-                {
-                    Console.WriteLine(ac3.ToString());
-                }
-            }
+            Run(ac3, 6);
 
             //Test6
 //Här börjar det bli knepigt. Måste lära mig mer om Exeptions så jag vet hur jag kan hantera sånt här snyggare.
@@ -131,10 +115,25 @@ namespace _1DV402.S2.L02B
             }
         }
 
-        #region OtherMethods
+        #region Methods
+        /// <summary>
+        /// Runs the specified AlarmClock object specified number of minutes, sets of alarm if need be.
+        /// </summary>
         private static void Run(AlarmClock ac, int minutes)
         {
-            ac.Minute = ac.Minute + minutes;
+            for (int i = 0; i < minutes; i++)
+            {
+                if (ac.TickTock() == true)
+                {
+                    Console.BackgroundColor = ConsoleColor.Magenta;
+                    Console.WriteLine("{0}   PIP, Pip, pip.... piiiip..", ac.ToString());
+                    Console.ResetColor();
+                }
+                else
+                {
+                    Console.WriteLine(ac.ToString());
+                }
+            }
         }
 
         private static void ViewErrorMessage(string message)
