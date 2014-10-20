@@ -26,15 +26,19 @@ namespace _1DV402.S2.L02B
             :this(0, 0)
         {
         }
-        //TODO: Denna ska initiera!
         public ClockDisplay(int hour, int minute)
         {
-
+            Hour = hour;
+            Minute = minute;
         }
 
         public void Increment()
         {
-
+            _minuteDisplay.Increment();
+            if(Minute == 0)
+            {
+                _hourDisplay.Increment();
+            }
         }
 
         public string ToString()

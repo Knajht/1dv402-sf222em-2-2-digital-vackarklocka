@@ -121,34 +121,39 @@ namespace _1DV402.S2.L02B
         /// Increases the time by one minute per call, checks if the alarm goes off
         /// </summary>
         /// <returns></returns>
+        //public bool TickTock()
+        //{
+        //    bool alarm = false;
+            
+        //    //Increases time by 1 minute, compensates for new hour and day
+        //    if(Minute == 59)
+        //    {
+        //        Minute = 0;
+        //        if(Hour == 23)
+        //        {
+        //            Hour = 0;
+        //        }
+        //        else
+        //        {
+        //            Hour++;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        Minute++;
+        //    }
+
+        //    //Checks if the alarm goes off
+        //    if(Hour == AlarmHour && Minute == AlarmMinute)
+        //    {
+        //        alarm = true;
+        //    }
+        //    return alarm;
+        //}
+
         public bool TickTock()
         {
-            bool alarm = false;
-            
-            //Increases time by 1 minute, compensates for new hour and day
-            if(Minute == 59)
-            {
-                Minute = 0;
-                if(Hour == 23)
-                {
-                    Hour = 0;
-                }
-                else
-                {
-                    Hour++;
-                }
-            }
-            else
-            {
-                Minute++;
-            }
-
-            //Checks if the alarm goes off
-            if(Hour == AlarmHour && Minute == AlarmMinute)
-            {
-                alarm = true;
-            }
-            return alarm;
+            throw new NotImplementedException();
         }
 
         /// <summary>

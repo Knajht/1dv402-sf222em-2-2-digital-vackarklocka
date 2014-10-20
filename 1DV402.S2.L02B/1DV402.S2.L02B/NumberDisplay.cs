@@ -12,44 +12,72 @@ namespace _1DV402.S2.L02B
         private int _number;
 
 
-        //TODO: Egenskaperna ska validera!
+        //TODO: Meddelande?
         public int MaxNumber
         {
             get { return _maxNumber; }
-            set { _maxNumber = value; }
+            set 
+            { 
+                if(value <= 0)
+                {
+                    throw new ArgumentException(); //TODO: Skicka med meddelande?
+                }
+                _maxNumber = value; 
+            }
         }
 
         public int Number
         {
             get { return _number; }
-            set { _number = value; }
+            set 
+            {
+                if(value <= 0 || value > MaxNumber)
+                {
+                    throw new ArgumentException(); //TODO: Skicka med meddelande?
+                }
+                
+                _number = value; 
+            }
         }
 
         public NumberDisplay(int maxNumber)
             :this(maxNumber, 0)
         {
         }
-        //TODO: Denna ska initiera objektet
+        //READY - Konstruktorer
         public NumberDisplay(int maxNumber, int number)
         {
-
+            MaxNumber = maxNumber;
+            Number = number;
         }
 
         public void Increment()
         {
-
+            Number++;
+            if(Number > MaxNumber)
+            {
+                Number = 0;
+            }
         }
 
         public string ToString()
         {
-            throw new NotImplementedException();
+            //return String.Format("{0}", Number);
+            return ToString("0"); //TODO: Välja metod.
         }
 
         public string ToString(string format)
         {
-            throw new NotImplementedException();
+            switch (format)
+            {
+                case "0":
+                case "G":
+                    return String.Format("{0}", Number);
+                case "00":
+                    return String.Format("{0:D2}", Number);
+                default:
+                    throw new FormatException();//TODO: Meddelande?
+            }
         }
-
-
     }
 }
