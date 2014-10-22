@@ -30,89 +30,88 @@ namespace _1DV402.S2.L02C
 
             //Test4
             ViewTestHeader("Test 4.\nStäller befintligt AlarmClock-objekt till 23:58 och låter den gå 13 minuter.\n");
-            ac3.Hour = 23;
-            ac3.Minute = 58;
+            ac3.Time = "23:58";
             Run(ac3, 13);
 
-            //Test5
-            ViewTestHeader("Test 5.\nStäller befintligt AlarmClock-objekt till tiden 6:12 och alarmtiden 6:15 samt låter den gå 6 minuter.\n");
-            ac3.Hour = 6;
-            ac3.Minute = 12;
-            ac3.AlarmHour = 6;
-            ac3.AlarmMinute = 15;
-            Run(ac3, 6);
+//            //Test5
+//            ViewTestHeader("Test 5.\nStäller befintligt AlarmClock-objekt till tiden 6:12 och alarmtiden 6:15 samt låter den gå 6 minuter.\n");
+//            ac3.Hour = 6;
+//            ac3.Minute = 12;
+//            ac3.AlarmHour = 6;
+//            ac3.AlarmMinute = 15;
+//            Run(ac3, 6);
 
-            //Test6
-//Här börjar det bli knepigt. Måste lära mig mer om Exeptions så jag vet hur jag kan hantera sånt här snyggare.
-            ViewTestHeader("Test 6.\nTestar egenskaperna så att undantag kastas då tid och alarmtid tilldelas felaktiga värden.");
-            try
-            {
-                ac3.Hour = 43;
-            }
-            catch (ArgumentException e)
-            {
-                ViewErrorMessage(e.Message);
-            }
-            try
-            {
-                ac3.Minute = 60;
-            }
-            catch (ArgumentException e)
-            {
-                ViewErrorMessage(e.Message);
-            }
-            try
-            {
-                ac3.AlarmHour = -1;
-            }
-            catch (ArgumentException e)
-            {
-                ViewErrorMessage(e.Message);
-            }
-            try
-            {
-                ac3.AlarmMinute = -20;
-            }
-            catch (ArgumentException e)
-            {
-                ViewErrorMessage(e.Message);
-            }
+//            //Test6
+////Här börjar det bli knepigt. Måste lära mig mer om Exeptions så jag vet hur jag kan hantera sånt här snyggare.
+//            ViewTestHeader("Test 6.\nTestar egenskaperna så att undantag kastas då tid och alarmtid tilldelas felaktiga värden.");
+//            try
+//            {
+//                ac3.Hour = 43;
+//            }
+//            catch (ArgumentException e)
+//            {
+//                ViewErrorMessage(e.Message);
+//            }
+//            try
+//            {
+//                ac3.Minute = 60;
+//            }
+//            catch (ArgumentException e)
+//            {
+//                ViewErrorMessage(e.Message);
+//            }
+//            try
+//            {
+//                ac3.AlarmHour = -1;
+//            }
+//            catch (ArgumentException e)
+//            {
+//                ViewErrorMessage(e.Message);
+//            }
+//            try
+//            {
+//                ac3.AlarmMinute = -20;
+//            }
+//            catch (ArgumentException e)
+//            {
+//                ViewErrorMessage(e.Message);
+//            }
 
-            //Test7
-//Även detta test fult, om än funktionellt. Hur fångar jag flera exeptions?
-            ViewTestHeader("Test 7.\nTestar konstruktorer så att undantag kastas då tid och alarmtid tilldelas felaktiga värden.");
-            try
-            {
-                AlarmClock ac4 = new AlarmClock(41, 24, 7, 35);
-            }
-            catch (ArgumentException e)
-            {
-                ViewErrorMessage(e.Message);
-            }
-            try
-            {
-                AlarmClock ac4 = new AlarmClock(21, 78, 7, 35);
-            }
-            catch (ArgumentException e)
-            {
-                ViewErrorMessage(e.Message);
-            }
-            try
-            {
-                AlarmClock ac4 = new AlarmClock(21, 21, 31, 35);
-            }
-            catch (ArgumentException e)
-            {
-                ViewErrorMessage(e.Message);
-            }
-            try
-            {
-                AlarmClock ac4 = new AlarmClock(21, 21, 2, 139);
-            }
-            catch (ArgumentException e)
-            {
-                ViewErrorMessage(e.Message);
-            }
+//            //Test7
+////Även detta test fult, om än funktionellt. Hur fångar jag flera exeptions?
+//            ViewTestHeader("Test 7.\nTestar konstruktorer så att undantag kastas då tid och alarmtid tilldelas felaktiga värden.");
+//            try
+//            {
+//                AlarmClock ac4 = new AlarmClock(41, 24, 7, 35);
+//            }
+//            catch (ArgumentException e)
+//            {
+//                ViewErrorMessage(e.Message);
+//            }
+//            try
+//            {
+//                AlarmClock ac4 = new AlarmClock(21, 78, 7, 35);
+//            }
+//            catch (ArgumentException e)
+//            {
+//                ViewErrorMessage(e.Message);
+//            }
+//            try
+//            {
+//                AlarmClock ac4 = new AlarmClock(21, 21, 31, 35);
+//            }
+//            catch (ArgumentException e)
+//            {
+//                ViewErrorMessage(e.Message);
+//            }
+//            try
+//            {
+//                AlarmClock ac4 = new AlarmClock(21, 21, 2, 139);
+//            }
+//            catch (ArgumentException e)
+//            {
+//                ViewErrorMessage(e.Message);
+//            }
         }
 
         #region Methods

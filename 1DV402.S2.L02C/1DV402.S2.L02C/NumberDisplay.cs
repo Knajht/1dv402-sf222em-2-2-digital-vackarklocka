@@ -100,13 +100,13 @@ namespace _1DV402.S2.L02C
             return ((obj != null) && (this.GetType() == obj.GetType()) && (this.GetHashCode() == obj.GetHashCode()));
         }
 
-        //Beta, testa funktionalitet.
+        //Beta
         public override int GetHashCode()
         {
             string hashSeed = String.Format("{0}{1}", Number, MaxNumber);
             return hashSeed.GetHashCode();
         }
-        // Operatorer överlagrade. Ordna Equals och GetHashCode enligt boken.
+        // Operators overloaded.
         public static bool operator ==(NumberDisplay a, NumberDisplay b)
         {
             if(ReferenceEquals(a, null))

@@ -15,16 +15,36 @@ namespace _1DV402.S2.L02C
         #endregion
 
         #region Properties
-        public int Hour
+        //public int Hour
+        //{
+        //    get { return _hourDisplay.Number; }
+        //    set { _hourDisplay.Number = value; }
+        //}
+        //public int Minute
+        //{
+        //    get { return _minuteDisplay.Number; }
+        //    set { _minuteDisplay.Number = value; }
+        //} 
+        public string Time
         {
-            get { return _hourDisplay.Number; }
-            set { _hourDisplay.Number = value; }
+            get { return String.Format("{0}:{1}", _hourDisplay, _minuteDisplay); }
+            set 
+            {
+                string sPattern = "^(([0-1]?[0-9])|([2][0-3])):([0-5][0-9])$";
+                if(System.Text.RegularExpressions.Regex.IsMatch(value, sPattern))
+                {
+                    //Since validation is already done with the Regex above, I use int.Parse without a try/catch clause.
+                    string[] times;
+                    times = value.Split(new char[] {':'});
+                    _hourDisplay.Number = int.Parse(times[0]);
+                    _minuteDisplay.Number = int.Parse(times[1]);
+                }
+                else
+                {
+                    throw new FormatException(); //Lägg till meddelande?
+                }
+            }            
         }
-        public int Minute
-        {
-            get { return _minuteDisplay.Number; }
-            set { _minuteDisplay.Number = value; }
-        } 
         #endregion
 
         #region Constructors
@@ -37,6 +57,12 @@ namespace _1DV402.S2.L02C
             _hourDisplay = new NumberDisplay(23, hour);
             _minuteDisplay = new NumberDisplay(59, minute);
         } 
+        public ClockDisplay(string time) //New, test it
+        {
+            _hourDisplay = new NumberDisplay(23);
+            _minuteDisplay = new NumberDisplay(59);
+            Time = time;
+        }
         #endregion
 
         #region Methods
@@ -46,7 +72,7 @@ namespace _1DV402.S2.L02C
         public void Increment()
         {
             _minuteDisplay.Increment();
-            if (Minute == 0)
+            if (_minuteDisplay.Number == 0)
             {
                 _hourDisplay.Increment();
             }
@@ -60,6 +86,33 @@ namespace _1DV402.S2.L02C
             return String.Format("{0}:{1}", _hourDisplay.ToString(), _minuteDisplay.ToString("00"));
         } 
         #endregion
+
+// NEW METHODS
+        public override bool Equals(object obj)
+        {
+            return ((obj != null) && (this.GetType() == obj.GetType()) && (this.GetHashCode() == obj.GetHashCode()));
+        }
+
+        //Beta, try it out
+        public override int GetHashCode()
+        {
+            string hashSeed = this.ToString();
+            return hashSeed.GetHashCode();
+        }
+        // Operators overloaded.
+        public static bool operator ==(ClockDisplay a, ClockDisplay b)
+        {
+            if (ReferenceEquals(a, null))
+            {
+                return ReferenceEquals(b, null);
+            }
+            return (a.Equals(b));
+        }
+
+        public static bool operator !=(ClockDisplay a, ClockDisplay b)
+        {
+            return !(a == b);
+        }
 
     }
 }

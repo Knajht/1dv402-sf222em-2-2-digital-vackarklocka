@@ -10,32 +10,70 @@ namespace _1DV402.S2.L02C
     {
         #region Fields
         //Aggregates
-        private ClockDisplay _alarmTime;
+        private ClockDisplay[] _alarmTimes;
         private ClockDisplay _time; 
         #endregion
 
-        #region Properties
-        public int AlarmHour
+        //#region Properties
+        //public int AlarmHour
+        //{
+        //    get { return _alarmTime.Hour; }
+        //    set { _alarmTime.Hour = value; }
+        //}
+        //public int AlarmMinute
+        //{
+        //    get { return _alarmTime.Minute; }
+        //    set { _alarmTime.Minute = value; }
+        //}
+        //public int Hour
+        //{
+        //    get { return _time.Hour; }
+        //    set { _time.Hour = value; }
+        //}
+        //public int Minute
+        //{
+        //    get { return _time.Minute; }
+        //    set { _time.Minute = value; }
+        //} 
+        //#endregion
+
+        public string[] AlarmTimes
         {
-            get { return _alarmTime.Hour; }
-            set { _alarmTime.Hour = value; }
+            get
+            {
+                string[] alarmTimes = new string[2];
+
+                int i = 0;
+                foreach (ClockDisplay at in _alarmTimes)
+                {
+		            alarmTimes[i] = at.ToString();
+                    i++;
+                }
+                return alarmTimes;
+            }
+            set
+            {
+                int i = 0;
+                foreach (string at in value)
+                {
+                    ClockDisplay alarm = new ClockDisplay(at);
+                    _alarmTimes[i] = alarm;
+                    i++;
+                }
+            }
         }
-        public int AlarmMinute
+
+        public string Time
         {
-            get { return _alarmTime.Minute; }
-            set { _alarmTime.Minute = value; }
+            get
+            {
+                return _time.Time;
+            }
+            set
+            {
+                _time.Time = value;
+            }
         }
-        public int Hour
-        {
-            get { return _time.Hour; }
-            set { _time.Hour = value; }
-        }
-        public int Minute
-        {
-            get { return _time.Minute; }
-            set { _time.Minute = value; }
-        } 
-        #endregion
 
         #region Constructors
         public AlarmClock()
@@ -49,7 +87,15 @@ namespace _1DV402.S2.L02C
         public AlarmClock(int hour, int minute, int alarmHour, int alarmMinute)
         {
             _time = new ClockDisplay(hour, minute);
-            _alarmTime = new ClockDisplay(alarmHour, alarmMinute);
+            _alarmTimes = new ClockDisplay[2];
+            _alarmTimes[0] = new ClockDisplay(alarmHour, alarmMinute);
+        } 
+        //NEW CONSTRUCTOR - Initiate array?
+        public AlarmClock(string time, params string[] alarmTimes)
+        {
+            _time = new ClockDisplay(time);
+            _alarmTimes = new ClockDisplay[0];
+            AlarmTimes = alarmTimes;
         } 
         #endregion
 
@@ -62,9 +108,12 @@ namespace _1DV402.S2.L02C
             bool alarm = false;
             _time.Increment();
 
-            if (Hour == AlarmHour && Minute == AlarmMinute)
+            foreach (ClockDisplay at in _alarmTimes) //Change to string & use properties instead?
             {
-                alarm = true;
+                if (at == _time)
+                {
+                    alarm = true;
+                }
             }
             return alarm;
         }
@@ -74,7 +123,12 @@ namespace _1DV402.S2.L02C
         /// </summary>
         public override string ToString()
         {
-            return String.Format("{0} ({1})", _time.ToString(), _alarmTime.ToString());
+            string alarmTimes = null;
+            foreach (string at in AlarmTimes)
+            {
+                alarmTimes = String.Format("{0} {1}", alarmTimes, at); //How does this work if it's only one alarmtime? TODO Solve separation
+            }
+            return String.Format("{0} ({1})", _time.ToString(), alarmTimes.ToString());
         } 
         #endregion
     }
