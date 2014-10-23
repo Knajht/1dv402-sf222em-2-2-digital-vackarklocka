@@ -14,45 +14,27 @@ namespace _1DV402.S2.L02C
         private ClockDisplay _time; 
         #endregion
 
-        //#region Properties
-        //public int AlarmHour
-        //{
-        //    get { return _alarmTime.Hour; }
-        //    set { _alarmTime.Hour = value; }
-        //}
-        //public int AlarmMinute
-        //{
-        //    get { return _alarmTime.Minute; }
-        //    set { _alarmTime.Minute = value; }
-        //}
-        //public int Hour
-        //{
-        //    get { return _time.Hour; }
-        //    set { _time.Hour = value; }
-        //}
-        //public int Minute
-        //{
-        //    get { return _time.Minute; }
-        //    set { _time.Minute = value; }
-        //} 
-        //#endregion
-
+        #region Properties
+        /// <summary>
+        /// Get formats the ClockDisplay[] _alarmTimes to string[] and returns it.
+        /// </summary>
         public string[] AlarmTimes
         {
             get
             {
-                string[] alarmTimes = new string[2];
+                string[] alarmTimes = new string[_alarmTimes.GetLength(0)];
 
                 int i = 0;
                 foreach (ClockDisplay at in _alarmTimes)
                 {
-		            alarmTimes[i] = at.ToString();
+                    alarmTimes[i] = at.ToString();
                     i++;
                 }
                 return alarmTimes;
             }
             set
             {
+                Array.Resize(ref _alarmTimes, value.GetLength(0));
                 int i = 0;
                 foreach (string at in value)
                 {
@@ -62,7 +44,6 @@ namespace _1DV402.S2.L02C
                 }
             }
         }
-
         public string Time
         {
             get
@@ -73,7 +54,8 @@ namespace _1DV402.S2.L02C
             {
                 _time.Time = value;
             }
-        }
+        } 
+        #endregion
 
         #region Constructors
         public AlarmClock()
@@ -85,16 +67,13 @@ namespace _1DV402.S2.L02C
         {
         }
         public AlarmClock(int hour, int minute, int alarmHour, int alarmMinute)
+            : this((String.Format("{0}:{1:D2}", hour, minute)), String.Format("{0}:{1:D2}", alarmHour, alarmMinute)) //Chose to call the next constructor here. Still, the ":D2" is a repetition just like the constructor in ClockDisplay.cs so it's far from perfect.
         {
-            _time = new ClockDisplay(hour, minute);
-            _alarmTimes = new ClockDisplay[2];
-            _alarmTimes[0] = new ClockDisplay(alarmHour, alarmMinute);
         } 
-        //NEW CONSTRUCTOR - Initiate array?
         public AlarmClock(string time, params string[] alarmTimes)
         {
             _time = new ClockDisplay(time);
-            _alarmTimes = new ClockDisplay[0];
+            _alarmTimes = new ClockDisplay[alarmTimes.GetLength(0)];
             AlarmTimes = alarmTimes;
         } 
         #endregion
@@ -108,7 +87,7 @@ namespace _1DV402.S2.L02C
             bool alarm = false;
             _time.Increment();
 
-            foreach (ClockDisplay at in _alarmTimes) //Change to string & use properties instead?
+            foreach (ClockDisplay at in _alarmTimes)
             {
                 if (at == _time)
                 {
@@ -119,17 +98,43 @@ namespace _1DV402.S2.L02C
         }
 
         /// <summary>
-        /// Returns the current time and alarm time as a string.
+        /// Returns the current time and alarm times as a string.
         /// </summary>
         public override string ToString()
         {
-            string alarmTimes = null;
-            foreach (string at in AlarmTimes)
+            return String.Format("{0} ({1})", _time.ToString(), String.Join(", ", AlarmTimes));
+        }
+
+        /// <summary>
+        /// Checks if the calling object is equal to the specified object.
+        /// </summary>
+        public override bool Equals(object obj)
+        {
+            return ((obj != null) && (this.GetType() == obj.GetType()) && (this.GetHashCode() == obj.GetHashCode()));
+        }
+
+        /// <summary>
+        /// Gets a hash code based on the text representation of this instance.
+        /// </summary>
+        public override int GetHashCode()
+        {
+            string hashSeed = this.ToString();
+            return hashSeed.GetHashCode();
+        }
+
+        // Overloaded operators.
+        public static bool operator ==(AlarmClock a, AlarmClock b)
+        {
+            if (ReferenceEquals(a, null))
             {
-                alarmTimes = String.Format("{0} {1}", alarmTimes, at); //How does this work if it's only one alarmtime? TODO Solve separation
+                return ReferenceEquals(b, null);
             }
-            return String.Format("{0} ({1})", _time.ToString(), alarmTimes.ToString());
-        } 
+            return (a.Equals(b));
+        }
+        public static bool operator !=(AlarmClock a, AlarmClock b)
+        {
+            return !(a == b);
+        }
         #endregion
     }
 }

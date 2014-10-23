@@ -15,16 +15,9 @@ namespace _1DV402.S2.L02C
         #endregion
 
         #region Properties
-        //public int Hour
-        //{
-        //    get { return _hourDisplay.Number; }
-        //    set { _hourDisplay.Number = value; }
-        //}
-        //public int Minute
-        //{
-        //    get { return _minuteDisplay.Number; }
-        //    set { _minuteDisplay.Number = value; }
-        //} 
+        /// <summary>
+        /// Joint property for fields _hourDisplay and _minuteDisplay. Gets a string of the time, set checks the supplied string against a regular expression of the allowed times and sets if possible.
+        /// </summary>
         public string Time
         {
             get { return String.Format("{0}:{1}", _hourDisplay, _minuteDisplay); }
@@ -41,7 +34,7 @@ namespace _1DV402.S2.L02C
                 }
                 else
                 {
-                    throw new FormatException(); //Lägg till meddelande?
+                    throw new FormatException(String.Format("The string '{0}' cannot be interpreted as a time in the format HH:mm.", value));
                 }
             }            
         }
@@ -53,11 +46,10 @@ namespace _1DV402.S2.L02C
         {
         }
         public ClockDisplay(int hour, int minute)
+            :this(String.Format("{0}:{1:D2}", hour, minute)) //D2 should not be necessary, specified in class NumberDisplays overloaded method ToString(String s). But no instances of NumberDisplay is initiated. Hmm. Solve it with an interface perhaps? Some kind of shared resource needed.
         {
-            _hourDisplay = new NumberDisplay(23, hour);
-            _minuteDisplay = new NumberDisplay(59, minute);
         } 
-        public ClockDisplay(string time) //New, test it
+        public ClockDisplay(string time)
         {
             _hourDisplay = new NumberDisplay(23);
             _minuteDisplay = new NumberDisplay(59);
@@ -77,7 +69,6 @@ namespace _1DV402.S2.L02C
                 _hourDisplay.Increment();
             }
         }
-
         /// <summary>
         /// Returns a time string as HH:mm or H:mm
         /// </summary>
@@ -85,21 +76,23 @@ namespace _1DV402.S2.L02C
         {
             return String.Format("{0}:{1}", _hourDisplay.ToString(), _minuteDisplay.ToString("00"));
         } 
-        #endregion
-
-// NEW METHODS
+        /// <summary>
+        /// Checks if the calling object is equal to the specified object.
+        /// </summary>
         public override bool Equals(object obj)
         {
             return ((obj != null) && (this.GetType() == obj.GetType()) && (this.GetHashCode() == obj.GetHashCode()));
         }
-
-        //Beta, try it out
+        /// <summary>
+        /// Gets a hash code based on the text representation of this instance.
+        /// </summary>
         public override int GetHashCode()
         {
             string hashSeed = this.ToString();
             return hashSeed.GetHashCode();
         }
-        // Operators overloaded.
+
+        // Overloaded operators.
         public static bool operator ==(ClockDisplay a, ClockDisplay b)
         {
             if (ReferenceEquals(a, null))
@@ -108,11 +101,10 @@ namespace _1DV402.S2.L02C
             }
             return (a.Equals(b));
         }
-
         public static bool operator !=(ClockDisplay a, ClockDisplay b)
         {
             return !(a == b);
         }
-
+        #endregion
     }
 }

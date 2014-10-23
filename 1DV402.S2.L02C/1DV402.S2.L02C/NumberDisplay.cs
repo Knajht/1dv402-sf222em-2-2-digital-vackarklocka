@@ -92,21 +92,23 @@ namespace _1DV402.S2.L02C
                     throw new FormatException("This is not a known format for Number.");
             }
         } 
-        #endregion
-
-//NY KOD - BETA KLAR
+        /// <summary>
+        /// Checks if the calling object is equal to the specified object.
+        /// </summary>
         public override bool Equals(object obj)
         {
             return ((obj != null) && (this.GetType() == obj.GetType()) && (this.GetHashCode() == obj.GetHashCode()));
         }
-
-        //Beta
+        /// <summary>
+        /// Gets a hash code based on the text representation of the instances Number and MaxNumber
+        /// </summary>
         public override int GetHashCode()
         {
             string hashSeed = String.Format("{0}{1}", Number, MaxNumber);
             return hashSeed.GetHashCode();
         }
-        // Operators overloaded.
+
+        // Overloaded operators
         public static bool operator ==(NumberDisplay a, NumberDisplay b)
         {
             if(ReferenceEquals(a, null))
@@ -115,10 +117,10 @@ namespace _1DV402.S2.L02C
             }
             return (a.Equals(b));
         }
-
         public static bool operator !=(NumberDisplay a, NumberDisplay b)
         {
             return !(a == b);
         }
+        #endregion
     }
 }
